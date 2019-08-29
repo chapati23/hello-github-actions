@@ -18,7 +18,8 @@ jobs:
           SLACK_BOT_TOKEN: ${{secrets.SLACK_BOT_TOKEN}}
         uses: pullreminders/slack-action@master
         with:
-          args: '{\"channel\":\"D790ZUYJH\",\"text\":\"Hello world\"}'
+          # args: '{\"channel\":\"D790ZUYJH\",\"text\":\"Hello world\"}'
+          args: '{\"channel\":\"CEWFBF9PW\",\"text\":\"Hello world\"}'
   # args:
   #   "{'channel': 'D790ZUYJH', 'text': 'Hello world', 'attachments': [{
   #   'text': 'And here’s an attachment!', 'color': '#ff0000' }]}"
