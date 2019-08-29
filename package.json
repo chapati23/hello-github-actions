@@ -1,0 +1,26 @@
+{
+  "name": "hello-github-actions",
+  "version": "1.0.0",
+  "description": "just playing with github actions",
+  "main": "src/index.js",
+  "repository": "https://github.com/chapati23/hello-github-actions.git",
+  "author": "Philip Paetz <philip.paetz@me.com>",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint src --fix"
+  },
+  "devDependencies": {
+    "@brickblock/eslint-config-base": "^4.2.5",
+    "babel-eslint": ">= 10",
+    "eslint": ">= 5",
+    "eslint-config-prettier": ">= 3",
+    "eslint-plugin-flowtype": ">= 3",
+    "eslint-plugin-import": ">= 2",
+    "eslint-plugin-jest": ">= 22",
+    "eslint-plugin-prettier": ">= 3",
+    "eslint-plugin-promise": ">= 4",
+    "eslint-plugin-security": ">= 1",
+    "eslint-plugin-unicorn": ">= 8",
+    "prettier": ">= 1"
+  }
+}
