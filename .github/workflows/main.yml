@@ -17,9 +17,9 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{secrets.SLACK_BOT_TOKEN}}
         run: |
-          env
           echo $SLACK_BOT_TOKEN
           echo ${{ secrets.SLACK_BOT_TOKEN }}
+          env
   # slack-notifier:
   #   runs-on: ubuntu-latest
   #   steps:
