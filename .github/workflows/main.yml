@@ -10,25 +10,15 @@ jobs:
   #     - uses: actions/setup-node@v1
   #     - run: yarn install
   #     - run: yarn lint
-  test-secret:
+  slack-notifier:
     runs-on: ubuntu-latest
     steps:
-      - name: Test Secrets
+      - name: Notify slack
         env:
           SLACK_BOT_TOKEN: ${{secrets.SLACK_BOT_TOKEN}}
-        run: |
-          echo $SLACK_BOT_TOKEN
-          echo ${{ secrets.SLACK_BOT_TOKEN }}
-          env
-  # slack-notifier:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Notify slack
-  #       env:
-  #         SLACK_BOT_TOKEN: ${{secrets.SLACK_BOT_TOKEN}}
-  #       uses: pullreminders/slack-action@master
-  #       with:
-  #         args: '{\"channel\":\"D790ZUYJH\",\"text\":\"Hello world\"}'
+        uses: pullreminders/slack-action@master
+        with:
+          args: '{\"channel\":\"D790ZUYJH\",\"text\":\"Hello world\"}'
   # args:
   #   "{'channel': 'D790ZUYJH', 'text': 'Hello world', 'attachments': [{
   #   'text': 'And here’s an attachment!', 'color': '#ff0000' }]}"
