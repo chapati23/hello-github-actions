@@ -2,18 +2,14 @@ name: Brickblock CI Workflow
 on: push
 
 jobs:
-  setup:
+  healthcheck:
+    name: Setup, Lint, and Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v1
-
-  lint:
-    name: Run all linters
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
-      - run: "yarn lint"
+      - run: yarn install
+      - run: yarn lint
 
   build:
     name: Hello world action
