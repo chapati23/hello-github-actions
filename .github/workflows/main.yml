@@ -24,6 +24,8 @@ jobs:
       #   with:
       #     node-version: ${{ matrix.node-version }}
 
+      - run: ls -al
+      - run: ls -al node_modules
       - run: yarn lint
   # build:
   #   name: Hello world action
