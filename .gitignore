@@ -1,0 +1,52 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+.npmrc
+.pnp
+.pnp.js
+.yarnrc
+package-lock.json
+npm-shrinkwrap.json
+npm-debug.log*
+npm-error.log*
+yarn-debug.log*
+yarn-error.log*
+
+# testing
+/.nyc_output
+/coverage
+
+# build output
+/build
+/dist
+/storybook-static
+
+# secrets
+*.crt
+*.key
+*.rsa
+.env
+.ci-env
+
+# editor files
+.editorconfig
+.idea
+.vscode
+
+# cli files
+oclif.manifest.json
+
+# tmp files
+/tmp
+~*
+.#*
+.cache*
+.gitlab-ci
+
+# misc
+.DS_Store
+*.log
+
+# database files 
+data/
