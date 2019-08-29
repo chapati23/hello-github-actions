@@ -2,36 +2,37 @@ name: Brickblock CI Workflow
 on: push
 
 jobs:
-  setup:
+  healthcheck:
+    name: Setup, Lint, and Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v1
       - run: yarn install
-
-  lint:
-    needs: setup
-    runs-on: ubuntu-latest
-    # strategy:
-    #   matrix:
-    #     node-version: [10.x, 12.x]
-    steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@v1
-
-      # - name: Use Node.js ${{ matrix.node-version }}
-      #   uses: actions/setup-node@v1
-      #   with:
-      #     node-version: ${{ matrix.node-version }}
-
-      - run: ls -al
-      - run: ls -al node_modules
       - run: yarn lint
-  # build:
-  #   name: Hello world action
+
+  slack-notifier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: pullreminders/slack-action@master
+        name: Notify slack
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        with:
+          args:
+            "{'channel': 'D790ZUYJH', 'text': 'Hello world', 'attachments': [{
+            'text': 'And here’s an attachment!', 'color': '#ff0000' }]}"
+  # healthcheck:
+  #   name: Setup, Lint, and Test
   #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       node-version: [10.x, 12.x]
   #   steps:
   #     - uses: actions/checkout@master
-  #     - uses: ./action-a
-  #       env:
-  #         MY_NAME: "Chapati"
+  #     - uses: actions/setup-node@v1
+  #       name: Use Node.js ${{ matrix.node-version }}
+  #       with:
+  #         node-version: ${{ matrix.node-version }}
+  #     - run: yarn install
+  #     - run: yarn lint
