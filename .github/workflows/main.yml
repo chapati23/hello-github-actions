@@ -5,11 +5,22 @@ jobs:
   healthcheck:
     name: Setup, Lint, and Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x]
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-node@v1
-      - run: yarn install
-      - run: yarn lint
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run ESLint
+        run: yarn lint
 
   build:
     name: Hello world action
