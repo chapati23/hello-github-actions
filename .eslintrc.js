@@ -1,3 +1,5 @@
 module.exports = {
-  extends: ["@brickblock/eslint-config-base"]
+  extends: [
+    '@brickblock/eslint-config-base',
+  ],
 }

@@ -1,0 +1,68 @@
+image: 'node:10.14'
+
+variables:
+  APP_PORT: '0'
+  HAS_GANACHE: 'false'
+  HAS_DB: 'false'
+  DB_SHOULD_DELETE: 'false'
+  HAS_INGRESS: 'false'
+  REPLICAS: '3'
+  INGRESS_PATH: /
+
+stages:
+  - setup
+  - test
+  - build
+  - review
+  - tag
+  - deploy
+  - e2e-test
+  - release
+  - publish
+  - post-deploy
+  - run-jobs
+
+templates_version:
+  stage: setup
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - 'echo "Templates at last CI file update: https://git.brickblock.sh/devops/project-templates/tree/71492e9ccf07b3c1c91c9d86edcfe37ac909afc3"'
+  except:
+    refs:
+      - tags
+      - master
+    variables:
+      - '$CI_COMMIT_MESSAGE =~ /\[ci-release\]/'
+  dependencies: []
+  cache: {}
+
+check_env_vars:
+  stage: setup
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - ': "${REVIEW_DOMAIN:?Environment variable REVIEW_DOMAIN needs to be set as a CI variable in the GitLab repo settings before running this script}"'
+    - ': "${STAGING_DOMAIN:?Environment variable STAGING_DOMAIN needs to be set as a CI variable in the GitLab repo settings before running this script}"'
+    - ': "${PRODUCTION_DOMAIN:?Environment variable PRODUCTION_DOMAIN needs to be set as a CI variable in the GitLab repo settings before running this script}"'
+    - ': "${ZONE:?Environment variable ZONE needs to be set as a CI variable in the GitLab repo settings before running this script}"'
+    - ': "${SLACK_WEBHOOK_URL:?Environment variable SLACK_WEBHOOK_URL needs to be set as a CI variable in the GitLab repo settings before running this script}"'
+  dependencies: []
+  cache: {}
+  except:
+    refs:
+      - tags
+      - master
+    variables:
+      - '$CI_COMMIT_MESSAGE =~ /\[ci-release\]/'
+
+include:
+  - 'https://git.brickblock.sh/devops/project-templates/raw/master/gitlab-ci/cache.yml'
+  - 'https://git.brickblock.sh/devops/project-templates/raw/master/gitlab-ci/setup.yml'
+  - 'https://git.brickblock.sh/devops/project-templates/raw/master/gitlab-ci/lint.yml'
+  - 'https://git.brickblock.sh/devops/project-templates/raw/master/gitlab-ci/test.yml'
+  - 'https://git.brickblock.sh/devops/project-templates/raw/master/gitlab-ci/flow.yml'
+  - 'https://git.brickblock.sh/devops/project-templates/raw/master/gitlab-ci/flow-coverage.yml'
+  - 'https://git.brickblock.sh/devops/project-templates/raw/master/gitlab-ci/build-npm-package.yml'
+  - 'https://git.brickblock.sh/devops/project-templates/raw/master/gitlab-ci/release.yml'
+  - 'https://git.brickblock.sh/devops/project-templates/raw/master/gitlab-ci/publish.yml'
